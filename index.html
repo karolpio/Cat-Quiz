@@ -363,7 +363,7 @@
 
         resultsDiv.style.display = "block";
         document.getElementById('quizScreen').style.display = 'none';
-        window.scrollTo(0, 0);//i give up trying to make the button gray, though now the start button wont work too (fixed)
+        resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });//i give up trying to make the button gray, though now the start button wont work too (fixed)
         //somehow logging the submit button broke the start button that seems like a possible issue but idc anymore i hate javascript pls delete
         //also once i answered every question and the button didnt work but i clicked he answers again and it magically started working so i guess its fine
     }
