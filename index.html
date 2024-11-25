@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Cat Are You? 🐱</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #fef9ef;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #ff6f61;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .start-screen {
+            text-align: center;
+            padding: 50px;
+        }
+        .quiz-screen {
+            display: none;
+        }
+        .question {
+            margin-bottom: 30px;
+        }
+        .question h2 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #444;
+        }
+        .answer-box {
+            display: block;
+            margin: 10px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .answer-box:hover {
+            background-color: #ffefeb;
+            border-color: #ff6f61;
+        }
+        .answer-box.selected {
+            background-color: #ff6f61;
+            color: #fff;
+            border-color: #e55d53;
+        }
+        .answer-box input {
+            display: none;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #ff6f61; /* #ff6f61 (on) vs #d3d3d3 (off) (i had to google how to comment in css for this)*/
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .submit-btn:disabled {
+            background-color: #d3d3d3 !important;
+            cursor: not-allowed !important;
+        }
+        .submit-btn:hover {
+            background-color: #e55d53;
+        }
+        .results {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fdf7f0;
+            border-radius: 8px;
+            border: 1px solid #ffdab9;
+        }
+    </style>
+</head>
+<body>
+<h1>What Cat Are You? 🐱</h1>
+
+<!-- Start Screen -->
+<div id="startScreen" class="start-screen">
+    <h2>Press to Start Quiz!</h2>
+    <button id="startBtn" class="submit-btn" onclick="startQuiz()">Start Quiz</button>
+</div>
+
+<!-- Quiz Screen -->
+<div id="quizScreen" class="quiz-container quiz-screen">
+    <form id="quizForm">
+        
+        <!-- Question 1 -->
+        <div class="question">
+            <h2>1. How do you usually spend your weekends?</h2>
+            <img src="img/cat1.jpg">
+            <label class="answer-box">
+                <input type="radio" name="q1" value="2">
+                a) Lounging on the couch, binge-watching shows.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q1" value="4">
+                b) Exploring new cafes, parks, or places.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q1" value="3">
+                c) Working on a passion project or hobby.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q1" value="5">
+                d) Hanging out with friends and soaking up attention.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q1" value="1">
+                e) Taking time to meditate, journal, or nap.
+            </label>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question">
+            <h2>2. What’s your ideal vacation destination?</h2>
+            <img src="img/cat2.jpg">
+            <label class="answer-box">
+                <input type="radio" name="q2" value="5">
+                a) A bustling city full of activity and nightlife.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q2" value="1">
+                b) A cozy cabin in the mountains.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q2" value="3">
+                c) A beach resort where you can alternate between lounging and swimming.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q2" value="4">
+                d) A road trip to see multiple spots and try new things.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q2" value="2">
+                e) My own home, with the occasional backyard picnic.
+            </label>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question">
+            <h2>3. Which snack do you prefer?</h2>
+            <img src="img/cat3.jpg">
+            <label class="answer-box">
+                <input type="radio" name="q3" value="5">
+                a) A decadent dessert like chocolate cake.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q3" value="4">
+                b) Fresh sushi or something exotic.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q3" value="3">
+                c) A simple but satisfying sandwich.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q3" value="2">
+                d) Chips, popcorn, or something easy to grab.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q3" value="1">
+                e) Warm tea with biscuits.
+            </label>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question">
+            <h2>4. Someone is being rude to you. What do you do?</h2>
+            <img src="img/cat4.jpg">
+            <label class="answer-box">
+                <input type="radio" name="q4" value="1">
+                a) Ignore them entirely—it’s not worth your energy.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q4" value="4">
+                b) Deliver a clever comeback to put them in their place.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q4" value="3">
+                c) Try to de-escalate and make peace.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q4" value="2">
+                d) Laugh it off and change the subject.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q4" value="5">
+                e) Stand your ground, loudly and proudly.
+            </label>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question">
+            <h2>5. How do your friends describe you?</h2>
+            <img src="img/cat5.jpg">
+            <label class="answer-box">
+                <input type="radio" name="q5" value="1">
+                a) Mysterious and chill.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q5" value="5">
+                b) Outgoing and charismatic.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q5" value="3">
+                c) Creative and clever.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q5" value="4">
+                d) Adventurous and bold.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q5" value="2">
+                e) Loyal and steady.
+            </label>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question">
+            <h2>6. If you were an object, what would you be?</h2>
+            <img src="img/cat6.jpg">
+            <label class="answer-box">
+                <input type="radio" name="q6" value="1">
+                a) A soft blanket.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q6" value="4">
+                b) A trendy pair of sunglasses.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q6" value="3">
+                c) A sleek laptop.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q6" value="5">
+                d) A disco ball.
+            </label>
+            <label class="answer-box">
+                <input type="radio" name="q6" value="2">
+                e) A comfy chair.
+            </label>
+        </div>
+
+        <button type="button" class="submit-btn" onclick="validateAndSubmit()">See My Result</button>
+    </form>
+</div>
+
+<!-- Results Screen -->
+<div id="results" class="results" style="display: none;">
+    <h2>Your Cat Personality:</h2>
+    <img id="resultImage" src="" style="width: 100%; max-width: 300px; margin-top: 20px;" />
+    <p id="resultText"></p>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const startButton = document.getElementById('startBtn');
+        startButton.disabled = false;  // Is there any chance this breaks the submit button?
+        startButton.style.cursor = 'pointer';  // i dont think it does but then wHY Wont it woRK
+    });
+
+    function startQuiz() {
+        document.getElementById('startScreen').style.display = 'none';
+        document.getElementById('quizScreen').style.display = 'block';
+
+        const submitButton = document.querySelector(".submit-btn"); //OH MY GOD IM SO STUPID (still doesnt work)
+        submitButton.disabled = true;
+    }
+
+    // works great (i think)
+    document.querySelectorAll('.answer-box').forEach(label => {
+        label.addEventListener('click', () => {
+            const parent = label.parentElement;
+            const questionName = label.querySelector('input').name;
+
+            parent.querySelectorAll(`input[name="${questionName}"]`).forEach(input => {
+                input.parentElement.classList.remove('selected');
+            });
+
+            label.classList.add('selected');
+            toggleSubmitButton();
+        });
+    });
+
+    // AUYIWFEOAU WHY WONT THE BGUTTON TURN GRAY AIUDFGBAILFOG
+    function toggleSubmitButton() {
+        const form = document.getElementById("quizForm");
+        const totalQuestions = document.querySelectorAll(".question").length;
+        const answeredQuestions = document.querySelectorAll(".question .answer-box.selected").length;
+        const submitButton = document.querySelector(".submit-btn");
+
+        if (answeredQuestions === totalQuestions) {
+            submitButton.disabled = false;
+            submitButton.style.backgroundColor = "#ff6f61";
+            submitButton.style.cursor = "pointer";
+        } else {
+            submitButton.disabled = true;
+            submitButton.style.backgroundColor = "#d3d3d3";
+            submitButton.style.cursor = "not-allowed";  // I DONT THINK THIS WORKS AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+            submitButton.style.setProperty('background-color', '#d3d3d3', 'important');
+            submitButton.style.setProperty('cursor', 'not-allowed', 'important'); //just make it important maybe? (nope)
+
+        }
+    }
+
+    // This works fine im pretty sure
+    function validateAndSubmit() {
+        const form = document.getElementById("quizForm");
+        const formData = new FormData(form);
+        const totalQuestions = document.querySelectorAll(".question").length;
+        const answeredQuestions = Array.from(formData.keys()).length;
+        const submitButton = document.querySelector(".submit-btn"); //im gonna refetch this and pray it fixes all my problems (it did not in fact fix any problems)
+
+        if (answeredQuestions < totalQuestions) {
+            submitButton.style.backgroundColor = "#d3d3d3";
+            submitButton.style.cursor = "not-allowed";
+            return;  // Just pasting it her again cuz it DOESNT WORK AND IDK WHY
+        }
+
+        let totalPoints = 0;
+        for (let value of formData.values()) {
+            totalPoints += parseInt(value);
+        }
+
+        const resultText = document.getElementById("resultText");
+        const resultsDiv = document.getElementById("results");
+
+        // This works dont touch it
+        if (totalPoints <= 9) {
+            resultText.textContent = "You're a Persian Cat! Relaxed, cozy, and a lover of life’s simple pleasures.";
+            resultImage.src = "img/res1.jpg";
+        } else if (totalPoints <= 14) {
+            resultText.textContent = "You're a British Shorthair! Dependable and chill, you love spending time with close friends.";
+            resultImage.src = "img/res2.jpg";
+        } else if (totalPoints <= 19) {
+            resultText.textContent = "You're a Bengal Cat! Creative and energetic, you’re a problem-solver with a curious streak.";
+            resultImage.src = "img/res3.jpg";
+        } else if (totalPoints <= 24) {
+            resultText.textContent = "You're a Siamese Cat! Outspoken and dramatic, you light up any room you enter.";
+            resultImage.src = "img/res4.jpg";
+        } else {
+            resultText.textContent = "You're a Maine Coon! Big-hearted and charismatic, you’re the life of the party.";
+            resultImage.src = "img/res5.jpg";
+        }
+
+        resultsDiv.style.display = "block";
+        document.getElementById('quizScreen').style.display = 'none'; //i give up trying to make the button gray, though now the start button wont work too
+        //somehow logging the submit button broke the start button that seems like a possible issue but idc anymore i hate javascript pls delete
+        //also once i answered every question and the button didnt work but i clicked he answers again and it magically started working so i guess its fine
+    }
+</script>
+</body>
+</html>
